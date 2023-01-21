@@ -6,6 +6,8 @@ using duende.Data;
 using Microsoft.AspNetCore.Identity;
 using IdentityModel;
 using System.Security.Claims;
+using Duende.IdentityServer.Events;
+using Duende.IdentityServer.Services;
 
 Log.Logger = new LoggerConfiguration()
 .WriteTo.Console()
@@ -32,9 +34,16 @@ try
     var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var signinMgr = scope.ServiceProvider.GetRequiredService<SignInManager<ApplicationUser>>();
+    var eventService = scope.ServiceProvider.GetRequiredService<IEventService>();
 
 
-    app.MapGet("/", () => "Hello World!!");
+    app.MapPost("/log-in", async (LoginRequest loginRequest) =>
+    {
+        var user = userMgr.FindByEmailAsync(loginRequest.Email).Result;
+        var result = await signinMgr.PasswordSignInAsync(user.UserName, loginRequest.Password, true, false);
+        await eventService.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName, clientId: "test"));
+    });
 
     app.MapPost("/sign-up", async (CreateUserRequest createUserDto) =>
     {
