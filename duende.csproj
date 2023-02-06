@@ -8,6 +8,7 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'SelfHost' " />
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.2.0" />
+    <PackageReference Include="IdentityModel" Version="6.0.0" />
 
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />
 	<PackageReference Include="Serilog.AspNetCore" Version="6.0.0" />

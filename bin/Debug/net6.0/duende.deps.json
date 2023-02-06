@@ -9,6 +9,7 @@
       "duende/1.0.0": {
         "dependencies": {
           "Duende.IdentityServer.AspNetIdentity": "6.2.0",
+          "IdentityModel": "6.0.0",
           "Microsoft.AspNetCore.Authentication.Google": "6.0.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.0",

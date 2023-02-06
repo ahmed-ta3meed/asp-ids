@@ -5,6 +5,7 @@ using duende.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Duende.IdentityServer.Models;
 
 namespace duende;
 
@@ -14,7 +15,17 @@ public class SeedData
     {
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
-            var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+            //Defining a dummy client
+           var client = new Client
+            {
+                ClientId = "service.client",
+                ClientSecrets = { new Secret("secret".Sha256()) },
+
+                AllowedGrantTypes = GrantTypes.ClientCredentials,
+                AllowedScopes = { "api1", "api2.read_only" }
+            };
+        var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();

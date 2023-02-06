@@ -87,3 +87,4 @@
 /Users/ahmadrw/Dev/duende/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll
 /Users/ahmadrw/Dev/duende/bin/Debug/net6.0/Microsoft.Extensions.Options.dll
 /Users/ahmadrw/Dev/duende/bin/Debug/net6.0/Microsoft.Extensions.Primitives.dll
+/Users/ahmadrw/Dev/duende/bin/Debug/net6.0/keys/is-signing-key-3EC65EF2F6D70F533CB3B36C0088E1E1.json

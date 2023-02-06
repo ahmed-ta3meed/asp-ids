@@ -17,7 +17,6 @@ public static class Config
             new ApiScope("scope1"),
             new ApiScope("scope2"),
         };
-
     public static IEnumerable<Client> Clients =>
         new Client[]
         {
@@ -27,10 +26,24 @@ public static class Config
                 ClientId = "m2m.client",
                 ClientName = "Client Credentials Client",
 
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                AllowedScopes = { "scope1" }
+                AllowedGrantTypes = {
+                    //GrantTypes.Ciba.First(),
+                    //GrantTypes.ClientCredentials.First(),
+                    //GrantTypes.Code.First(),
+                    //GrantTypes.CodeAndClientCredentials.First(),
+                    //GrantTypes.DeviceFlow.First(),
+                    //GrantTypes.Hybrid.First(),
+                    //GrantTypes.HybridAndClientCredentials.First(),
+                    //GrantTypes.Implicit.First(),
+                    //GrantTypes.ImplicitAndClientCredentials.First(),
+                    //GrantTypes.ResourceOwnerPassword.First(),
+                    //GrantTypes.ResourceOwnerPasswordAndClientCredentials.First(),
+                    GrantTypes.ResourceOwnerPassword.First()
+                },
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                AllowOfflineAccess= true,
+                AllowedScopes = { "scope1", "openid", "profile" },
+                RedirectUris = { "https://localhost:44300/signin-oidc" },
             },
 
             // interactive client using code flow + pkce
@@ -41,7 +54,7 @@ public static class Config
 
                 AllowedGrantTypes = GrantTypes.Code,
 
-                RedirectUris = { "https://localhost:44300/signin-oidc" },
+                RedirectUris = { "https://localhost:44300/signin-oidc" }, 
                 FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
                 PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
 

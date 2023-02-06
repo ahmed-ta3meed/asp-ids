@@ -8,6 +8,7 @@ using IdentityModel;
 using System.Security.Claims;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;
+using IdentityModel.Client;
 
 Log.Logger = new LoggerConfiguration()
 .WriteTo.Console()
@@ -38,11 +39,26 @@ try
     var eventService = scope.ServiceProvider.GetRequiredService<IEventService>();
 
 
-    app.MapPost("/log-in", async (LoginRequest loginRequest) =>
+    app.MapPost("/", async (LoginRequest loginRequest) =>
     {
         var user = userMgr.FindByEmailAsync(loginRequest.Email).Result;
-        var result = await signinMgr.PasswordSignInAsync(user.UserName, loginRequest.Password, true, false);
-        await eventService.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName, clientId: "test"));
+        Console.WriteLine(user.Id);
+        //var result = await signinMgr.PasswordSignInAsync(user.UserName, loginRequest.Password, true, false);
+        //await eventService.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName));
+        //var client = new HttpClient();
+
+        //var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+        //{
+        //    Address = "https://localhost:5001/connect/token",
+        //    ClientId = "m2m.client",
+        //    ClientSecret = "secret",
+        //    Scope = "scope1"
+        //});
+        //Console.WriteLine(response.IsError);
+        //Console.WriteLine(response.ErrorDescription);
+        //Console.WriteLine(response.ErrorType);
+        //Console.WriteLine(response.IsError);
+        //return response.AccessToken;
     });
 
     app.MapPost("/sign-up", async (CreateUserRequest createUserDto) =>
